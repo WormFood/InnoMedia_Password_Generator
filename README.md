@@ -6,6 +6,10 @@ A small, self-contained browser utility that generates the device-specific `inno
 
 Other InnoMedia models and firmware versions may use the same algorithm, but have not been verified.
 
+## Online Password Generator
+
+[Open the InnoMedia Password Generator](https://wormfood.github.io/InnoMedia_Password_Generator/innomedia_password_generator.html)
+
 ## Why this exists
 
 I was given an InnoMedia MTA8328-1N that I wanted to reuse as a normal VoIP adapter. The unit worked, but at first I had no useful way to administer it.
