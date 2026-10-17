@@ -210,17 +210,19 @@ There are:
 - no external JavaScript libraries
 - no external fonts
 - no analytics
-- no network requests
+- no network requests made by the generator after the page is loaded
 
-Your MAC address and generated password remain in your browser.
+Your generated password is never stored. The last MAC address you enter is saved only in the browser's `localStorage` so it can be restored the next time you open the generator.
 
-The page remembers the last MAC address you entered and restores it the next time you open the generator. It uses browser `localStorage` for this, and also writes a cookie when the page is hosted over HTTP/HTTPS. `localStorage` is used because browsers generally do not persist normal cookies for pages opened directly with `file://`.
+No cookie is used. Unlike cookies, `localStorage` is not automatically sent to the web server with HTTP requests.
 
-`index.html` is completely self-contained. You can save the page and open it locally, and the generator will continue to work without an Internet connection.
+When using the GitHub Pages version, the saved MAC remains in that browser's local storage for the `wormfood.github.io` origin. If you save the HTML file and open it directly with `file://`, browsers generally keep local storage on the local machine, but persistence and scoping for `file://` URLs are browser-dependent.
+
+`innomedia_password_generator.html` is completely self-contained. You can save the page and open it locally, and the generator will continue to work without an Internet connection.
 
 ## Using it
 
-Open `index.html` in a browser.
+Open `innomedia_password_generator.html` in a browser.
 
 Enter the device MAC address in the six hexadecimal fields. The password is generated immediately as you type.
 
@@ -260,7 +262,7 @@ MD5(lowercase_mac + "::innomediaadmin")
 
 The first eight bytes of the raw MD5 digest are used. Each byte is masked with `0x1f`, then mapped to either `a-z` or `3-8` to produce the eight-character password.
 
-The JavaScript in `index.html` implements that calculation directly.
+The JavaScript in `innomedia_password_generator.html` implements that calculation directly.
 
 ## Important
 
