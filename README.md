@@ -27,7 +27,7 @@ The service-account password is the only device-specific credential in this tabl
 
 ## The `innomediaadmin` account
 
-The password for `innomediaadmin` is generated from the device's MAC address. It is not simply a universal password.
+The password for `innomediaadmin` is generated from the device's MAC address. On the tested MTA8328-1N, this is the MAC address printed on the label on the back of the unit. It is not simply a universal password.
 
 On the tested MTA8328-1N, the `innomediaadmin` login can be used with the management CLI through:
 
@@ -224,7 +224,7 @@ When using the GitHub Pages version, the saved MAC remains in that browser's loc
 
 Open `innomedia_password_generator.html` in a browser.
 
-Enter the device MAC address in the six hexadecimal fields. The password is generated immediately as you type.
+Enter the MAC address printed on the label on the back of the unit in the six hexadecimal fields. The password is generated immediately as you type.
 
 You can also paste a complete MAC address in any common format:
 
