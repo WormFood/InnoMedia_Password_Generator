@@ -10,6 +10,39 @@ Other InnoMedia models and firmware versions may use the same algorithm, but hav
 
 [Open the InnoMedia Password Generator](https://wormfood.github.io/InnoMedia_Password_Generator/innomedia_password_generator.html)
 
+## Known credentials on the tested firmware
+
+These were recovered or confirmed on the tested MTA8328-1N, hardware A4.1, firmware 1.0.10.3:
+
+| Access | Username / command | Password | Notes |
+| --- | --- | --- | --- |
+| Normal administrator | `Admin` | `password` | Case-sensitive username. Used for normal administration. |
+| Normal user | `user` | `welcome` | Limited account. |
+| Service CLI | `innomediaadmin` | Device-specific, generated from the MAC address | Works at the management CLI over the serial console, Telnet, and SSH. Does **not** work at the web login. |
+| Hidden shell from management CLI | `console on` | `!nn0M3d1@` | Launches `/bin/sh` on the tested firmware. |
+| Factory menu | `f` / Factory | `inno1901fact` | Opens the manufacturing/service Factory menu. |
+| Serial bootloader | bootloader password prompt | `!nn0M3d1@` | IM-Boot allows only one password attempt per boot. |
+
+The service-account password is the only device-specific credential in this table. This generator calculates that password from the MAC address.
+
+## The `innomediaadmin` account
+
+The password for `innomediaadmin` is generated from the device's MAC address. It is not simply a universal password.
+
+On the tested MTA8328-1N, the `innomediaadmin` login can be used with the management CLI through:
+
+- the serial console
+- Telnet
+- SSH
+
+It does **not** work with the web interface login.
+
+The firmware also has a special `showhint` path for this account. That code generates the same device-specific password and invokes a QR-code helper using an InnoMedia URL. That strongly suggests that `innomediaadmin` was intended as a service or support mechanism.
+
+This utility reproduces the password calculation locally. It does not use InnoMedia's QR-code service and does not send the MAC address or password anywhere.
+
+I figured this could be a handy little tool for someone who owns one of these devices and wants to use the service login, particularly if the normal administrative password has been forgotten.
+
 ## Why this exists
 
 I was given an InnoMedia MTA8328-1N that I wanted to reuse as a normal VoIP adapter. The unit worked, but at first I had no useful way to administer it.
@@ -166,39 +199,6 @@ Shell password: !nn0M3d1@
 ```
 
 That launches `/bin/sh` directly from the running system, so once you have CLI access there is normally no reason to use the `init=/bin/sh` boot method again.
-
-## Known credentials on the tested firmware
-
-These were recovered or confirmed on the tested MTA8328-1N, hardware A4.1, firmware 1.0.10.3:
-
-| Access | Username / command | Password | Notes |
-| --- | --- | --- | --- |
-| Normal administrator | `Admin` | `password` | Case-sensitive username. Used for normal administration. |
-| Normal user | `user` | `welcome` | Limited account. |
-| Service CLI | `innomediaadmin` | Device-specific, generated from the MAC address | Works at the management CLI over the serial console, Telnet, and SSH. Does **not** work at the web login. |
-| Hidden shell from management CLI | `console on` | `!nn0M3d1@` | Launches `/bin/sh` on the tested firmware. |
-| Factory menu | `f` / Factory | `inno1901fact` | Opens the manufacturing/service Factory menu. |
-| Serial bootloader | bootloader password prompt | `!nn0M3d1@` | IM-Boot allows only one password attempt per boot. |
-
-The service-account password is the only device-specific credential in this table. This generator calculates that password from the MAC address.
-
-## The `innomediaadmin` account
-
-The password for `innomediaadmin` is generated from the device's MAC address. It is not simply a universal password.
-
-On the tested MTA8328-1N, the `innomediaadmin` login can be used with the management CLI through:
-
-- the serial console
-- Telnet
-- SSH
-
-It does **not** work with the web interface login.
-
-The firmware also has a special `showhint` path for this account. That code generates the same device-specific password and invokes a QR-code helper using an InnoMedia URL. That strongly suggests that `innomediaadmin` was intended as a service or support mechanism.
-
-This utility reproduces the password calculation locally. It does not use InnoMedia's QR-code service and does not send the MAC address or password anywhere.
-
-I figured this could be a handy little tool for someone who owns one of these devices and wants to use the service login, particularly if the normal administrative password has been forgotten.
 
 ## Privacy and offline use
 
